@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Curriculo extends Model
 {
@@ -36,6 +38,12 @@ class Curriculo extends Model
     public function getMd5FileFromPdfCurriculum(): string
     {
         return md5_file($this->getStoragePathPdfCurriculum());
+    }
+
+    public function permisoDescarga(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'permisos_descargas','curriculo_id','user_id')
+        ->withPivot('validado');
     }
 
 

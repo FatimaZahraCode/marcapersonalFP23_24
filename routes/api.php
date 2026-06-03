@@ -18,6 +18,7 @@ use App\Http\Controllers\API\EmpresaController;
 use App\Http\Controllers\API\TokenController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\API\CountController;
+use App\Http\Controllers\API\PermisoDescargaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::prefix('v1')->group(function () {
             $user->fullName = $user->nombre . ' ' . $user->apellidos;
             return $user;
         });
+        Route::post('curriculos/{id}/permisoDescarga', [PermisoDescargaController::class, 'store']);
     });
 
     // emite un nuevo token
@@ -53,7 +55,10 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('ciclos', CicloController::class);
-
+    /* Route::apiResource('curriculos.permisos-descarga', PermisoDescargaController::class)->parameters([
+        'curriculos' => 'curriculo',
+        'permisos-descarga' => 'permisoDescarga'
+    ]); */
     Route::apiResource('competencias', CompetenciaController::class);
 
     Route::apiResource('curriculos', CurriculoController::class);

@@ -145,4 +145,10 @@ class User extends Authenticatable
         return $dominio;
     }
 
+    public function permisoDescarga(): BelongsToMany
+    {
+        return $this->belongsToMany(Curriculo::class, 'permisos_descargas','empresa_id','curriculo_id')
+        ->withPivot('validado');
+    }
+
 }
